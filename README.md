@@ -1,3 +1,5 @@
+![Screenshot](screenshot.png)
+
 Televator [an_televator]
 ============================
 * GitHub: https://github.com/NoctisLabs/an_televator
