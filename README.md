@@ -12,6 +12,8 @@ Televator nodes can be placed a maximum of 32 nodes apart. Televators will not w
 
 Televator does not use entities, but rather teleports the player from televator to televator making it suitable for servers that prefer to use only the most efficient mods. This also helps increase general performance for users with less powerful computers or mobile devices, and provides a smooth and consistent feel.
 
+![Recipe](recipe.png)
+
 ### Media Licenses
 televator_whoosh.ogg (CC BY 3.0):<br />
 - https://freesound.org/people/Glaneur%20de%20sons/sounds/34172/
