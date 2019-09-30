@@ -1,4 +1,24 @@
--- televator/init.lua
+--[[
+MIT License
+Copyright (c) 2017 Elijah Duffy
+Copyright (c) 2019 Noctis Labs
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+associated documentation files (the "Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+--]]
+
+-- an_televator/init.lua
 
 local delay = {}
 
@@ -16,9 +36,9 @@ end
 --- Functions
 ---
 
--- [function] Get near elevators
-local function get_near_elevators(pos, which)
-	for i = 1, 16 do
+-- [function] Get near televators
+local function get_near_televators(pos, which)
+	for i = 1, 32 do
 		local cpos = vector.new(pos)
 
 		if which == "above" then
@@ -28,17 +48,17 @@ local function get_near_elevators(pos, which)
 		end
 
 		local name = minetest.get_node(cpos).name
-		if (which == "above" and name == "televator:elevator")
-				or (which == "below" and i ~= 1 and name == "televator:elevator") then
+		if (which == "above" and name == "an_televator:televator")
+				or (which == "below" and i ~= 1 and name == "an_televator:televator") then
 			cpos.y = cpos.y + 1
 			return cpos
-		elseif name ~= "air" and name ~= "televator:elevator" then
+		elseif name ~= "air" and name ~= "an_televator:televator" then
 			return
 		end
 	end
 end
 
--- [function] Elevator safe
+-- [function] Televator safe
 local function is_safe(pos)
 	for i = 0, 1 do
 		local tpos = vector.new(pos)
@@ -56,23 +76,22 @@ end
 --- Registrations
 ---
 
--- [register] Elevator node
-minetest.register_node("televator:elevator", {
-	description = "Elevator\n"..
-			minetest.colorize("grey","Can be placed up to 16 nodes apart\n"
-					.."Jump to go up, sneak to go down"),
-	tiles = {"televator_elevator.png"},
+-- [register] Televator node
+minetest.register_node("an_televator:televator", {
+	description = "Televator\n"..
+			minetest.colorize("grey","Place up to 32 nodes apart.\n"
+					.."Jump goes up, sneak goes down."),
+	tiles = {"televator_televator.png"},
 	groups = {cracky = 2, disable_jump = 1},
 	after_place_node = function(pos)
-		-- Set infotext
-		minetest.get_meta(pos):set_string("infotext", "Elevator")
+		minetest.get_meta(pos):set_string("infotext", "Televator")
 	end,
 })
 
 -- [register] Recipe
 if itemset then
 	minetest.register_craft({
-		output = "televator:elevator 2",
+		output = "an_televator:televator",
 		recipe = {
 			{itemset.steel, itemset.glass, itemset.steel},
 			{itemset.steel, itemset.gold, itemset.steel},
@@ -94,7 +113,7 @@ minetest.register_globalstep(function(dtime)
 		end
 
 		if not delay[name] or delay[name] > 0.5 then
-			if minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z}).name == "televator:elevator" then
+			if minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z}).name == "an_televator:televator" then
 				local where
 				local controls = player:get_player_control()
 				if controls.jump then
@@ -103,20 +122,20 @@ minetest.register_globalstep(function(dtime)
 					where = "below"
 				else return end
 
-				local epos = get_near_elevators(pos, where)
+				local epos = get_near_televators(pos, where)
 				if epos and is_safe(epos) then
 					player:set_pos(epos) -- Update player position
-
-					-- Play sound
 					minetest.sound_play("televator_whoosh", {
 						gain = 0.75,
 						pos = epos,
 						max_hear_distance = 5,
 					})
-				elseif epos then
-					minetest.chat_send_player(name, "Elevator blocked by obstruction")
 				else
-					minetest.chat_send_player(name, "Could not find elevator")
+					minetest.sound_play("televator_error", {
+						gain = 0.75,
+						pos = epos,
+						max_hear_distance = 5,
+					})
 				end
 
 				delay[name] = 0 -- Restart delay
