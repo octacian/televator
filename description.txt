@@ -1,1 +1,1 @@
-Televator allows you to create simple elevators in your worlds that work incredibly fast amidst lag and are relatively inexpensive to make. All you need to get started, is to craft an elevator (`televator:elevator`).
+Televators are simple elevators that work incredibly fast and are relatively inexpensive to make. Craft a Televator (`an_televator:televator`).
