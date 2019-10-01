@@ -113,7 +113,7 @@ minetest.register_globalstep(function(dtime)
 		end
 
 		if not delay[name] or delay[name] > 0.5 then
-			if minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z}).name == "an_televator:televator" then
+			if minetest.get_node({x = pos.x, y = pos.y - 0.5, z = pos.z}).name == "an_televator:televator" then
 				local where
 				local controls = player:get_player_control()
 				if controls.jump then
