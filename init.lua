@@ -21,7 +21,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -- an_televator/init.lua
 
 local delay = {}
-
 local itemset
 if minetest.get_modpath("default") then
 	itemset = {
@@ -36,17 +35,14 @@ end
 --- Functions
 ---
 
--- [function] Get near televators
 local function get_near_televators(pos, which)
 	for i = 1, 32 do
 		local cpos = vector.new(pos)
-
 		if which == "above" then
 			cpos.y = cpos.y + i
 		elseif which == "below" then
 			cpos.y = cpos.y - i
 		end
-
 		local name = minetest.get_node(cpos).name
 		if (which == "above" and name == "an_televator:televator")
 				or (which == "below" and i ~= 1 and name == "an_televator:televator") then
@@ -56,17 +52,14 @@ local function get_near_televators(pos, which)
 	end
 end
 
--- [function] Televator safe
 local function is_safe(pos)
 	for i = 0, 1 do
 		local tpos = vector.new(pos)
 		tpos.y = tpos.y + i
-
 		if minetest.get_node(tpos).name ~= "air" then
 			return
 		end
 	end
-
 	return true
 end
 
@@ -74,7 +67,6 @@ end
 --- Registrations
 ---
 
--- [register] Televator node
 minetest.register_node("an_televator:televator", {
 	description = "Televator\n"..
 			minetest.colorize("grey","Place up to 32 nodes apart.\n"
@@ -86,7 +78,6 @@ minetest.register_node("an_televator:televator", {
 	end,
 })
 
--- [register] Recipe
 if itemset then
 	minetest.register_craft({
 		output = "an_televator:televator",
@@ -98,18 +89,15 @@ if itemset then
 	})
 end
 
--- [register] Globalstep
 minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
 		local pos  = player:get_pos()
 		local name = player:get_player_name()
-
 		if not delay[name] then
 			delay[name] = 0.5
 		else
 			delay[name] = delay[name] + dtime
 		end
-
 		if not delay[name] or delay[name] > 0.5 then
 			if minetest.get_node({x = pos.x, y = pos.y - 0.5, z = pos.z}).name == "an_televator:televator" then
 				local where
@@ -119,10 +107,9 @@ minetest.register_globalstep(function(dtime)
 				elseif controls.sneak then
 					where = "below"
 				else return end
-
 				local epos = get_near_televators(pos, where)
 				if epos and is_safe(epos) then
-					player:set_pos(epos) -- Update player position
+					player:set_pos(epos)
 					minetest.sound_play("televator_whoosh", {
 						gain = 0.75,
 						pos = epos,
@@ -135,8 +122,7 @@ minetest.register_globalstep(function(dtime)
 						max_hear_distance = 5,
 					})
 				end
-
-				delay[name] = 0 -- Restart delay
+				delay[name] = 0
 			end
 		end
 	end
