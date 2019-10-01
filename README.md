@@ -4,6 +4,7 @@ Televator [an_televator]
 ============================
 * GitHub: https://github.com/NoctisLabs/an_televator
 * Download: https://github.com/NoctisLabs/an_televator/archive/master.zip
+* Forum Thread: https://forum.minetest.net/viewtopic.php?f=9&t=23412
 * License: MIT (see below for media license)
 
 Televators are simple elevators that work incredibly fast and are relatively inexpensive to make. Craft a Televator (`an_televator:televator`).
