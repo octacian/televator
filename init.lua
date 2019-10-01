@@ -52,8 +52,6 @@ local function get_near_televators(pos, which)
 				or (which == "below" and i ~= 1 and name == "an_televator:televator") then
 			cpos.y = cpos.y + 1
 			return cpos
-		elseif name ~= "air" and name ~= "an_televator:televator" then
-			return
 		end
 	end
 end
