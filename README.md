@@ -8,7 +8,7 @@ Televator [an_televator]
 
 Televators are simple elevators that work incredibly fast and are relatively inexpensive to make. Craft a Televator (`an_televator:televator`).
 
-Televator nodes can be placed a maximum of 32 nodes apart. Televators will not work if there are obstructions between  or there is no space for the player. Simply stand on a televator that has another televator node above or below it and press jump to go up and sneak to go down. There are sound effects too! While standing on a televator you cannot jump.
+Televator nodes can be placed a maximum of 32 nodes apart. Televators will not work if there is no space for the player. Simply stand on a televator that has another televator node above or below it and press jump to go up and sneak to go down. While standing on a televator you cannot jump.
 
 Televator does not use entities, but rather teleports the player from televator to televator making it suitable for servers that prefer to use only the most efficient mods. This also helps increase general performance for users with less powerful computers or mobile devices, and provides a smooth and consistent feel.
 
