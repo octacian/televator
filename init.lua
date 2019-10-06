@@ -68,9 +68,7 @@ end
 ---
 
 minetest.register_node("an_televator:televator", {
-	description = "Televator\n"..
-			minetest.colorize("grey","Place up to 32 nodes apart.\n"
-					.."Jump goes up, sneak goes down."),
+	description = "Televator",
 	tiles = {"televator_televator.png"},
 	groups = {cracky = 2, disable_jump = 1},
 	after_place_node = function(pos)
