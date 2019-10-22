@@ -2,6 +2,7 @@
 
 Televator [an_televator]
 ============================
+* ContentDB: https://content.minetest.net/packages/NoctisLabs/an_televator/
 * GitHub: https://github.com/NoctisLabs/an_televator
 * Download: https://github.com/NoctisLabs/an_televator/archive/master.zip
 * Forum Thread: https://forum.minetest.net/viewtopic.php?f=9&t=23412
